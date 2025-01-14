@@ -1,0 +1,25 @@
+.container {
+  width: 300px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+} 
+
+/* 新しいスタイルを追加 */
+div.TimelineItem-body > details.review-thread-component > summary.color-bg-subtle > div > span > a.Link--primary {
+  color: #8250df !important;  /* 紫色 */
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+div.TimelineItem-body > details.review-thread-component > summary.color-bg-subtle > div > span > a.Link--primary:hover {
+  color: #6639ba !important;  /* ホバー時は少し暗い紫色 */
+} 
