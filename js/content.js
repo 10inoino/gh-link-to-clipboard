@@ -42,6 +42,11 @@ function addCopyButtons() {
       event.stopPropagation();
       
       const textContent = link.textContent.trim();
+
+      // If text starts with '...' remove it
+      if (textContent.startsWith('...')) {
+        textContent = textContent.substring(3);
+      }
       
       if (textContent) {
         navigator.clipboard.writeText(textContent).then(() => {
