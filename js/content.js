@@ -27,7 +27,7 @@ function createCopyButton() {
 
 // Function to add copy buttons
 function addCopyButtons() {
-  const links = document.querySelectorAll('div.TimelineItem-body a.Link--primary');
+  const links = document.querySelectorAll('div.TimelineItem-body details.review-thread-component summary.color-bg-subtle a.Link--primary');
   console.log('GitHub PR Comment Copier: Found links:', links);
   
   links.forEach(link => {
