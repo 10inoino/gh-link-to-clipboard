@@ -1,6 +1,3 @@
-// Debug log
-console.log('GitHub PR Comment Copier: Content script loaded');
-
 // Function to create copy button
 function createCopyButton() {
   const button = document.createElement('button');
@@ -41,7 +38,7 @@ function addCopyButtons() {
       event.preventDefault();
       event.stopPropagation();
       
-      const textContent = link.textContent.trim();
+      let textContent = link.textContent.trim();
 
       // If text starts with '...' remove it
       if (textContent.startsWith('...')) {
@@ -49,30 +46,43 @@ function addCopyButtons() {
       }
       
       if (textContent) {
-        navigator.clipboard.writeText(textContent).then(() => {
-          console.log('GitHub PR Comment Copier: Text copied to clipboard:', textContent);
-          // Visual feedback for successful copy
-          copyButton.style.backgroundColor = '#2da44e';
-          copyButton.querySelector('svg').style.fill = 'white';
-          
-          setTimeout(() => {
-            copyButton.style.backgroundColor = '';
-            copyButton.querySelector('svg').style.fill = '';
-          }, 500);
-        }).catch(err => {
-          console.error('GitHub PR Comment Copier: Failed to copy to clipboard:', err);
-        });
+        navigator.clipboard.writeText(textContent)
+          .then(() => {
+            console.log('GitHub PR Comment Copier: Text copied to clipboard:', textContent);
+            // Visual feedback for successful copy
+            copyButton.style.backgroundColor = '#2da44e';
+            copyButton.querySelector('svg').style.fill = 'white';
+            
+            setTimeout(() => {
+              copyButton.style.backgroundColor = '';
+              copyButton.querySelector('svg').style.fill = '';
+            }, 500);
+          })
+          .catch(err => {
+            console.error('GitHub PR Comment Copier: Failed to copy to clipboard:', err);
+          });
       }
     });
   });
 }
 
-// Initial execution
-addCopyButtons();
-
-// Observe DOM changes
-const observer = new MutationObserver(addCopyButtons);
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-}); 
+// Wait for DOM to be ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    addCopyButtons();
+    // Observe DOM changes
+    const observer = new MutationObserver(addCopyButtons);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  });
+} else {
+  addCopyButtons();
+  // Observe DOM changes
+  const observer = new MutationObserver(addCopyButtons);
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+} 

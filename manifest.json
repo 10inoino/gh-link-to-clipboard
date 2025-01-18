@@ -1,10 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "GitHub PR Comment Copier",
-  "version": "1.1.1",
-  "description": "Copies text when clicking links in GitHub PR comments",
+  "name": "GitHub PR Path Copier",
+  "version": "1.1.2",
+  "description": "Copies file paths from GitHub PR conversation pages",
   "permissions": [
     "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://github.com/*/*/pull/*"
   ],
   "content_scripts": [
     {
@@ -13,7 +16,19 @@
     }
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   }
 } 
 
