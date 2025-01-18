@@ -1,18 +1,41 @@
-.PHONY: build clean
+# Variables
+NAME := github-pr-comment-copier
+VERSION := $(shell jq -r .version manifest.json)
+FILES := manifest.json \
+         js/content.js \
+         popup.html \
+         css/popup.css
 
-# 拡張機能をビルド（zip化）
-build:
-	@echo "Chrome拡張機能をビルドしています..."
-	@zip -r extension.zip \
-		manifest.json \
-		popup.html \
-		css/* \
-		js/content.js \
-		images/* \
-		-x "*.DS_Store" \
-		-x "__MACOSX/*"
+# Default target
+.PHONY: all
+all: build
 
-# ビルドファイルをクリーン
+# Build the extension
+.PHONY: build
+build: clean
+	@echo "Building $(NAME) v$(VERSION)..."
+	@mkdir -p dist
+	@cp -r $(FILES) dist/
+
+# Package the extension
+.PHONY: package
+package: build
+	@echo "Packaging $(NAME) v$(VERSION)..."
+	@cd dist && zip -r ../$(NAME)-v$(VERSION).zip .
+	@echo "Created: $(NAME)-v$(VERSION).zip"
+
+# Clean build artifacts
+.PHONY: clean
 clean:
-	@echo "ビルドファイルを削除しています..."
-	@rm -f extension.zip 
+	@echo "Cleaning..."
+	@rm -rf dist
+	@rm -f $(NAME)-v*.zip
+
+# Help command
+.PHONY: help
+help:
+	@echo "Available commands:"
+	@echo "  make build    - Build the extension"
+	@echo "  make package  - Create a ZIP package for distribution"
+	@echo "  make clean    - Remove build artifacts"
+	@echo "  make help     - Show this help message" 
