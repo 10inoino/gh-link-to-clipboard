@@ -25,7 +25,6 @@ function createCopyButton() {
 // Function to add copy buttons with retry
 function addCopyButtonsWithRetry(retryCount = 0, maxRetries = 5) {
   const links = document.querySelectorAll('div.TimelineItem-body details.review-thread-component summary.color-bg-subtle a.Link--primary');
-  console.log('GitHub PR Comment Copier: Found links:', links);
   
   if (links.length === 0 && retryCount < maxRetries) {
     setTimeout(() => addCopyButtonsWithRetry(retryCount + 1, maxRetries), 1000);
