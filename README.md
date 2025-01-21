@@ -2,6 +2,8 @@
 
 A Chrome extension that adds copy buttons next to file links in GitHub Pull Request conversation pages, making it easy to copy file paths to your clipboard.
 
+https://chromewebstore.google.com/detail/github-pr-path-copier/ijlcomldkdkfgpenmnieihhdliipijdi
+
 ## Features
 
 - One-click file path copying from PR conversations
