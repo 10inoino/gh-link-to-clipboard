@@ -1,3 +1,24 @@
+// Development mode flag
+let isDevelopment = false;
+
+// Fetch development mode from config
+fetch(chrome.runtime.getURL('config.json'))
+  .then(response => response.json())
+  .then(config => {
+    isDevelopment = config.development || false;
+  })
+  .catch(() => {
+    // If config.json doesn't exist, assume production mode
+    isDevelopment = false;
+  });
+
+// Debug logging function
+function debugLog(...args) {
+  if (isDevelopment) {
+    console.log('GitHub PR Comment Copier:', ...args);
+  }
+}
+
 // Function to create copy button
 function createCopyButton() {
   const button = document.createElement('button');
@@ -25,8 +46,10 @@ function createCopyButton() {
 // Function to add copy buttons with retry
 function addCopyButtonsWithRetry(retryCount = 0, maxRetries = 5) {
   const links = document.querySelectorAll('div.TimelineItem-body details.review-thread-component summary.color-bg-subtle a.Link--primary');
+  debugLog('Found links:', links);
   
   if (links.length === 0 && retryCount < maxRetries) {
+    debugLog('No links found, retrying...');
     setTimeout(() => addCopyButtonsWithRetry(retryCount + 1, maxRetries), 1000);
     return;
   }

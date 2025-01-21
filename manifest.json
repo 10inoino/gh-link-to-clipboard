@@ -9,10 +9,18 @@
   "host_permissions": [
     "https://github.com/*/*/pull/*"
   ],
+  "web_accessible_resources": [{
+    "resources": ["config.json"],
+    "matches": ["https://github.com/*"]
+  }],
   "content_scripts": [
     {
-      "matches": ["https://github.com/*/*/pull/*"],
-      "js": ["js/content.js"]
+      "matches": [
+        "https://github.com/*/*/pull/*"
+      ],
+      "js": [
+        "js/content.js"
+      ]
     }
   ],
   "action": {
@@ -30,5 +38,4 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   }
-} 
-
+}
